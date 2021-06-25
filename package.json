@@ -1,0 +1,41 @@
+{
+  "name": "beast",
+  "version": "0.1.0",
+  "description": "A Node.js script that takes screenshot using headless chrome and AWS lambda and returns base64",
+  "main": "index.js",
+  "scripts": {
+    "start": "sls offline start",
+    "lint": "prettier --write '**/*.js'",
+    "test": "serverless-bundle test"
+  },
+  "keywords": [
+    "node",
+    "html",
+    "browser",
+    "headless chrome",
+    "aws lamda",
+    "serverless",
+    "api-gateway",
+    "browsershot",
+    "screenshot"
+  ],
+  "author": "palPalani",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/palpalani/beast.git"
+  },
+  "devDependencies": {
+    "chrome-aws-lambda": "^5.2.1",
+    "prettier": "^2.3",
+    "serverless-bundle": "3.2.0",
+    "serverless-dotenv-plugin": "^2.1.1",
+    "serverless-offline": "^5.3.3",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb": "^18.2",
+    "eslint-plugin-import": "^2.23",
+    "eslint-plugin-jsx-a11y": "^6.4",
+    "eslint-plugin-prettier": "^3.4"
+  },
+  "dependencies": {}
+}
