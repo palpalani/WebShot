@@ -31,7 +31,7 @@
     "serverless-bundle": "6.0.0",
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-offline": "^5.3.3",
-    "eslint": "^8.43.0",
+    "eslint": "^8.44.0",
     "eslint-config-airbnb": "^19.0",
     "eslint-plugin-import": "^2.27",
     "eslint-plugin-jsx-a11y": "^6.7",
