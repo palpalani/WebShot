@@ -8,7 +8,7 @@ provider:
     # Google Chrome for AWS Lambda as a layer
     # Make sure you use the latest version depending on the region
     # https://github.com/shelfio/chrome-aws-lambda-layer
-    - arn:aws:lambda:${self:provider.region}:764866452798:layer:chrome-aws-lambda:24
+    - arn:aws:lambda:${self:provider.region}:764866452798:layer:chrome-aws-lambda:38
   # function parameters
   runtime: nodejs14.x
   memorySize: 2048 # recommended
