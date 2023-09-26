@@ -21,6 +21,8 @@ exports.handler = async (event) => {
             args: chromeLambda.args,
             executablePath: await chromeLambda.executablePath,
             defaultViewport,
+            headless: chromium.headless,
+            ignoreHTTPSErrors: true,
         });
 
         // Open a new browser tab.
