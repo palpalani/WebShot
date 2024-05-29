@@ -30,7 +30,7 @@
     "prettier": "^3.2",
     "serverless-bundle": "6.1.0",
     "serverless-dotenv-plugin": "^6.0.0",
-    "serverless-offline": "^13.5.1",
+    "serverless-offline": "^13.6.0",
     "eslint": "^9.3.0",
     "eslint-config-airbnb": "^19.0",
     "eslint-plugin-import": "^2.29",
