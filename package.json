@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "chrome-aws-lambda": "^10.1.0",
-    "prettier": "^3.3",
+    "prettier": "^3.4",
     "serverless-bundle": "6.3.1",
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-offline": "^14.3.2",
