@@ -33,7 +33,7 @@
     "serverless-offline": "^14.4.0",
     "eslint": "^9.29.0",
     "eslint-config-airbnb": "^19.0",
-    "eslint-plugin-import": "^2.31",
+    "eslint-plugin-import": "^2.32",
     "eslint-plugin-jsx-a11y": "^6.10",
     "eslint-plugin-prettier": "^5.4"
   },
