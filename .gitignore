@@ -52,3 +52,6 @@ env.yml
 .idea
 
 yarn.lock
+
+CLAUDE.md
+package-lock.json

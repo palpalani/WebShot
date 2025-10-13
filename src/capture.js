@@ -1,81 +1,112 @@
-// this module will be provided by the layer
-const chromeLambda = require('chrome-aws-lambda');
+const puppeteer = require('puppeteer-core');
+const chromium = require('@sparticuz/chromium');
 
-// aws-sdk is always preinstalled in AWS Lambda in all Node.js runtimes
-//const S3Client = require("aws-sdk/clients/s3");
-
-// create an S3 client
-//const s3 = new S3Client({region: process.env.S3_REGION});
-
-// here starts our function!
 exports.handler = async (event) => {
+    let browser = null;
+
     try {
-        // Default browser viewport size.
+        const {
+            url,
+            html,
+            width = 1280,
+            height = 720,
+            fullPage = false,
+            type = 'png',
+            quality,
+            clip,
+            omitBackground = true,
+            encoding = 'base64',
+        } = event;
+
+        // Validate input
+        if (!url && !html) {
+            throw new Error('Either url or html parameter is required');
+        }
+
+        // Configure viewport
         const defaultViewport = {
-            width: typeof event.width !== 'undefined' ? event.width : 600,
-            height: typeof event.height !== 'undefined' ? event.height : 550,
+            width: parseInt(width, 10),
+            height: parseInt(height, 10),
         };
 
-        // Launch a headless chrome browser.
-        const browser = await chromeLambda.puppeteer.launch({
-            args: chromeLambda.args,
-            executablePath: await chromeLambda.executablePath,
+        // Launch headless Chrome browser
+        browser = await puppeteer.launch({
+            args: chromium.args,
             defaultViewport,
+            executablePath: await chromium.executablePath(),
             headless: chromium.headless,
             ignoreHTTPSErrors: true,
         });
 
-        // Open a new browser tab.
         const page = await browser.newPage();
 
-        if (typeof event.html === 'undefined') {
-            // Navigate to the page.
-            await page.goto(event.url, { waitUntil: ['load', 'networkidle2'] });
-        } else {
-            await page.setContent(event.html, {
+        // Navigate to URL or set HTML content
+        if (html) {
+            await page.setContent(html, {
                 waitUntil: ['load', 'networkidle2'],
             });
-            //await page.emulateMedia('screen');
+        } else {
+            await page.goto(url, {
+                waitUntil: ['load', 'networkidle2'],
+            });
         }
 
-        let options = {
-            omitBackground: true,
+        // Build screenshot options
+        const screenshotOptions = {
+            type,
+            omitBackground,
+            fullPage,
         };
 
-        // Take a screenshot.
-        const buffer = await page.screenshot(options);
+        // Add quality for jpeg/webp
+        if ((type === 'jpeg' || type === 'webp') && quality) {
+            screenshotOptions.quality = parseInt(quality, 10);
+        }
 
-        /*
-            // upload the image using the current timestamp as filename
-            const result = await s3
-              .upload({
-                Bucket: process.env.S3_BUCKET,
-                Key: `${Date.now()}.png`,
-                Body: buffer,
-                ContentType: "image/png",
-                ACL: "public-read"
-              })
-              .promise();
+        // Add clip if provided
+        if (clip) {
+            screenshotOptions.clip = {
+                x: parseInt(clip.x, 10),
+                y: parseInt(clip.y, 10),
+                width: parseInt(clip.width, 10),
+                height: parseInt(clip.height, 10),
+            };
+        }
 
-            // return the uploaded image url
-            return { url: result.Location };
-          */
+        // Add encoding
+        if (encoding) {
+            screenshotOptions.encoding = encoding;
+        }
+
+        // Take screenshot
+        const screenshot = await page.screenshot(screenshotOptions);
+
         await browser.close();
+        browser = null;
 
-        return buffer.toString('base64');
+        // Return based on encoding
+        if (encoding === 'base64') {
+            return screenshot;
+        }
+
+        return screenshot.toString('base64');
     } catch (error) {
+        if (browser) {
+            await browser.close();
+        }
+
         return formatError(error);
     }
 };
 
-var formatError = function (error) {
+const formatError = (error) => {
     return {
-        statusCode: error.statusCode,
+        statusCode: error.statusCode || 500,
         headers: {
             'Content-Type': 'text/plain',
-            'x-amzn-ErrorType': error.code,
+            'x-amzn-ErrorType': error.code || 'InternalServerError',
         },
         isBase64Encoded: false,
-        body: error.code + ': ' + error.message,
+        body: `${error.code || 'Error'}: ${error.message}`,
     };
 };
