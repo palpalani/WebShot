@@ -1,7 +1,7 @@
 {
-  "name": "beast",
+  "name": "webshot",
   "version": "1.0.0",
-  "description": "A Node.js script that takes screenshot using headless chrome and AWS lambda and returns base64",
+  "description": "WebShot - Cost-effective Screenshot-as-a-Service using serverless architecture. Pay only for what you use with headless Chrome on AWS Lambda. Capture webpages and HTML content with zero infrastructure costs when idle.",
   "main": "index.js",
   "scripts": {
     "start": "sls offline start",
@@ -23,7 +23,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/palpalani/beast.git"
+    "url": "https://github.com/palpalani/webshot.git"
   },
   "devDependencies": {
     "@sparticuz/chromium": "^140.0.0",

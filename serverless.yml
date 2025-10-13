@@ -1,4 +1,4 @@
-service: beast
+service: webshot
 
 provider:
   name: aws
