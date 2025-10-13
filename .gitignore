@@ -54,3 +54,4 @@ env.yml
 yarn.lock
 
 CLAUDE.md
+package-lock.json
