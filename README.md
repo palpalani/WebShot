@@ -5,22 +5,24 @@
 WebShot is a serverless screenshot service that converts webpages or HTML content to images using headless Chrome on AWS Lambda. Built on a true pay-per-use model, WebShot eliminates infrastructure costs when idle and scales automatically with demand, making it the most cost-effective solution for screenshot automation.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node.js Version](https://img.shields.io/badge/node-22.x-green.svg)](https://nodejs.org)
+[![Node.js Version](https://img.shields.io/badge/node-20.x-green.svg)](https://nodejs.org)
+[![pnpm](https://img.shields.io/badge/pnpm-10.x-orange.svg)](https://pnpm.io)
 [![AWS Lambda](https://img.shields.io/badge/AWS-Lambda-orange.svg)](https://aws.amazon.com/lambda/)
 [![Serverless](https://img.shields.io/badge/Serverless-Framework-red.svg)](https://www.serverless.com/)
 
 ## Features
 
-- 💰 **Cost Optimization** - Pay only per execution (< $0.0001/request), zero cost when idle
-- 📸 **URL or HTML Screenshots** - Capture any webpage or custom HTML content
-- 🎨 **Multiple Image Formats** - PNG, JPEG, and WebP support
-- ⚡ **High Performance** - 2GB memory allocation with 30-second timeout
-- 🔧 **Flexible Configuration** - Customize viewport, quality, clipping, and more
-- 🌐 **Modern Chrome** - Uses latest Chromium (v140) with Puppeteer
-- 📦 **Serverless Architecture** - Auto-scales from zero to thousands of requests
-- 🛠️ **Developer-Friendly** - Local development with serverless-offline
-- 🎯 **Optimized Bundles** - Webpack optimization with serverless-bundle
-- 🚀 **No Infrastructure Management** - No servers to maintain or patch
+- **Cost Optimization** - Pay only per execution (< $0.0001/request), zero cost when idle
+- **URL or HTML Screenshots** - Capture any webpage or custom HTML content
+- **Email Screenshot Support** - Perfect for rendering email HTML content as images
+- **Multiple Image Formats** - PNG, JPEG, and WebP support
+- **High Performance** - 2GB memory allocation with 30-second timeout
+- **Flexible Configuration** - Customize viewport, quality, clipping, and more
+- **Modern Chrome** - Uses latest Chromium (v140) with Puppeteer
+- **Serverless Architecture** - Auto-scales from zero to thousands of requests
+- **Developer-Friendly** - Local development with serverless-offline
+- **Optimized Bundles** - Webpack optimization with serverless-bundle
+- **No Infrastructure Management** - No servers to maintain or patch
 
 ## Cost Optimization Benefits
 
@@ -75,20 +77,25 @@ With AWS Lambda pricing (us-west-2):
 
 ## Prerequisites
 
-- [Node.js 22.x](https://nodejs.org/) or later
-- [Serverless Framework](https://www.serverless.com/framework/docs/getting-started) installed globally
+- [Node.js 20.x](https://nodejs.org/) or later
+- [pnpm 10.x](https://pnpm.io/) or later (recommended package manager)
 - [AWS CLI](https://aws.amazon.com/cli/) configured with appropriate credentials
 - AWS Account with Lambda and API Gateway permissions
 
 ### Installing Prerequisites
 
 ```bash
-# Install Serverless Framework globally
-npm install -g serverless
+# Install pnpm globally (if not already installed)
+npm install -g pnpm
+
+# Verify pnpm installation
+pnpm --version
 
 # Configure AWS credentials
 aws configure
 ```
+
+> **Note:** Serverless Framework is included as a dev dependency and does not need to be installed globally.
 
 ## Installation
 
@@ -99,11 +106,17 @@ Clone the repository and install dependencies:
 git clone https://github.com/palpalani/webshot.git
 cd webshot
 
-# Install dependencies
+# Install dependencies using npm
 npm install --legacy-peer-deps
+
+# OR using pnpm (recommended for better dependency management)
+pnpm install
 ```
 
-> **Note:** The `--legacy-peer-deps` flag is required due to peer dependency conflicts in the current package ecosystem.
+> **Note:**
+> - When using npm, the `--legacy-peer-deps` flag is required due to peer dependency conflicts
+> - pnpm handles peer dependencies more efficiently and is fully compatible with this project
+> - All npm commands in the documentation can be replaced with pnpm equivalents (e.g., `pnpm start`, `pnpm test`)
 
 ## Quick Start
 
@@ -112,9 +125,7 @@ npm install --legacy-peer-deps
 Start the local development server:
 
 ```bash
-npm start
-# or
-serverless offline start
+pnpm start
 ```
 
 The API will be available at `http://localhost:3000`
@@ -122,16 +133,46 @@ The API will be available at `http://localhost:3000`
 ### Test the Function Locally
 
 ```bash
-serverless invoke local --function capture --data '{"url": "https://example.com"}'
+pnpm serverless invoke local --function capture --data '{"url": "https://example.com"}'
 ```
 
 ### Deploy to AWS
 
 ```bash
-sls deploy
+pnpm deploy
 ```
 
 After deployment, you'll receive an API endpoint URL that you can use to invoke the function.
+
+## Migrating from npm to pnpm
+
+If you previously used npm with this project, follow these steps to migrate to pnpm:
+
+```bash
+# 1. Remove npm artifacts
+rm -rf node_modules package-lock.json
+
+# 2. Install pnpm globally (if not installed)
+npm install -g pnpm
+
+# 3. Install dependencies with pnpm
+pnpm install
+
+# 4. Verify everything works
+pnpm lint
+pnpm package
+
+# 5. Update your deployment scripts
+# Use 'pnpm deploy' instead of 'npm run deploy'
+# Use 'pnpm start' instead of 'npm start'
+```
+
+**Benefits of pnpm:**
+- Faster installations (uses hard links instead of copying files)
+- Better disk space efficiency (shared dependency storage)
+- Stricter dependency resolution (prevents phantom dependencies)
+- No need for `--legacy-peer-deps` flag
+- Automatic peer dependency installation
 
 ## API Reference
 
@@ -211,9 +252,9 @@ provider:
 
 | Command | Description |
 |---------|-------------|
-| `npm start` | Start local development server |
-| `npm test` | Run test suite |
-| `npm run lint` | Format code with Prettier |
+| `npm start` / `pnpm start` | Start local development server |
+| `npm test` / `pnpm test` | Run test suite |
+| `npm run lint` / `pnpm lint` | Format code with Prettier |
 
 ### Project Structure
 
@@ -229,10 +270,11 @@ webshot/
 
 ### Tech Stack
 
-- **Runtime:** Node.js 22.x
+- **Runtime:** Node.js 20.x
+- **Package Manager:** pnpm 10.x
 - **Browser:** Chromium 140.0.0 (@sparticuz/chromium)
-- **Automation:** Puppeteer Core 24.22.3
-- **Framework:** Serverless Framework
+- **Automation:** Puppeteer Core 24.24.0
+- **Framework:** Serverless Framework 3.40.0
 - **Bundler:** Webpack (via serverless-bundle)
 - **Local Testing:** serverless-offline
 - **Code Quality:** ESLint, Prettier
@@ -243,30 +285,44 @@ webshot/
 
 ```bash
 # Deploy to default stage (dev)
-sls deploy
+pnpm deploy
 
-# Deploy to specific stage
-sls deploy --stage production
+# Deploy to production
+pnpm deploy:prod
 
 # Deploy to specific region
-sls deploy --region eu-west-1
+pnpm serverless deploy --region eu-west-1
+
+# Package only (without deploying)
+pnpm package
 ```
 
 ### Remove Deployment
 
 ```bash
-sls remove
+pnpm remove
+# or
+pnpm serverless remove --stage production
 ```
 
 ### View Logs
 
 ```bash
 # Tail logs
-sls logs -f capture --tail
+pnpm serverless logs -f capture --tail
 
 # View recent logs
-sls logs -f capture
+pnpm serverless logs -f capture
 ```
+
+### Production Deployment Checklist
+
+For production deployments, refer to [DEPLOYMENT.md](DEPLOYMENT.md) for a comprehensive checklist including:
+- Pre-deployment verification steps
+- Security best practices
+- Post-deployment testing
+- Monitoring setup
+- Rollback procedures
 
 ## Examples
 
@@ -308,6 +364,20 @@ sls logs -f capture
   "height": 600
 }
 ```
+
+### 4a. Email HTML Screenshot
+
+WebShot is ideal for converting email HTML content to images. Simply pass your email HTML as the `html` parameter:
+
+```json
+{
+  "html": "<!DOCTYPE html><html><head><style>body{font-family:Arial,sans-serif;background-color:#f4f4f4;padding:20px;}.email-container{background-color:#ffffff;padding:30px;border-radius:8px;max-width:600px;margin:0 auto;}.header{color:#333;border-bottom:2px solid #007bff;padding-bottom:10px;}.content{margin:20px 0;color:#555;line-height:1.6;}.button{background-color:#007bff;color:#ffffff;padding:10px 20px;text-decoration:none;border-radius:5px;display:inline-block;margin-top:10px;}</style></head><body><div class='email-container'><h1 class='header'>Welcome to Our Service</h1><div class='content'><p>Hello,</p><p>Thank you for signing up. We're excited to have you on board!</p><a href='#' class='button'>Get Started</a></div></div></body></html>",
+  "width": 600,
+  "fullPage": true
+}
+```
+
+**Note:** WebShot accepts HTML content directly as a parameter. EML file format is not supported - you must extract and pass the HTML content from your email source.
 
 ### 5. Clipped Region Screenshot
 
@@ -414,4 +484,4 @@ If you encounter any issues or have questions:
 
 ---
 
-**Made with ❤️ using Serverless and AWS Lambda | Save 90%+ on screenshot costs**
+**Made with care using Serverless and AWS Lambda | Save 90%+ on screenshot costs**

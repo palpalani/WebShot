@@ -4,7 +4,7 @@ provider:
   name: aws
   region: us-west-2
   versionFunctions: false
-  runtime: nodejs22.x
+  runtime: nodejs20.x
   memorySize: 2048
   timeout: 30
   environment:
