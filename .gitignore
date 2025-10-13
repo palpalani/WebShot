@@ -57,6 +57,7 @@ yarn.lock
 package-lock.json
 
 CLAUDE.md
+QUICK_START.md
 DEPLOYMENT.md
 MIGRATION_SUMMARY.md
 PRODUCTION_READY.md
