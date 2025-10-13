@@ -30,8 +30,10 @@ build/Release
 node_modules
 jspm_packages
 
-# Optional npm cache directory
+# Package manager files
 .npm
+.pnpm-store
+.pnpm-debug.log
 
 # Optional REPL history
 .node_repl_history
@@ -52,6 +54,9 @@ env.yml
 .idea
 
 yarn.lock
+package-lock.json
 
 CLAUDE.md
-package-lock.json
+DEPLOYMENT.md
+MIGRATION_SUMMARY.md
+PRODUCTION_READY.md
