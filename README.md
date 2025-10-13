@@ -11,16 +11,17 @@ WebShot is a serverless screenshot service that converts webpages or HTML conten
 
 ## Features
 
-- 💰 **Cost Optimization** - Pay only per execution (< $0.0001/request), zero cost when idle
-- 📸 **URL or HTML Screenshots** - Capture any webpage or custom HTML content
-- 🎨 **Multiple Image Formats** - PNG, JPEG, and WebP support
-- ⚡ **High Performance** - 2GB memory allocation with 30-second timeout
-- 🔧 **Flexible Configuration** - Customize viewport, quality, clipping, and more
-- 🌐 **Modern Chrome** - Uses latest Chromium (v140) with Puppeteer
-- 📦 **Serverless Architecture** - Auto-scales from zero to thousands of requests
-- 🛠️ **Developer-Friendly** - Local development with serverless-offline
-- 🎯 **Optimized Bundles** - Webpack optimization with serverless-bundle
-- 🚀 **No Infrastructure Management** - No servers to maintain or patch
+- **Cost Optimization** - Pay only per execution (< $0.0001/request), zero cost when idle
+- **URL or HTML Screenshots** - Capture any webpage or custom HTML content
+- **Email Screenshot Support** - Perfect for rendering email HTML content as images
+- **Multiple Image Formats** - PNG, JPEG, and WebP support
+- **High Performance** - 2GB memory allocation with 30-second timeout
+- **Flexible Configuration** - Customize viewport, quality, clipping, and more
+- **Modern Chrome** - Uses latest Chromium (v140) with Puppeteer
+- **Serverless Architecture** - Auto-scales from zero to thousands of requests
+- **Developer-Friendly** - Local development with serverless-offline
+- **Optimized Bundles** - Webpack optimization with serverless-bundle
+- **No Infrastructure Management** - No servers to maintain or patch
 
 ## Cost Optimization Benefits
 
@@ -309,6 +310,20 @@ sls logs -f capture
 }
 ```
 
+### 4a. Email HTML Screenshot
+
+WebShot is ideal for converting email HTML content to images. Simply pass your email HTML as the `html` parameter:
+
+```json
+{
+  "html": "<!DOCTYPE html><html><head><style>body{font-family:Arial,sans-serif;background-color:#f4f4f4;padding:20px;}.email-container{background-color:#ffffff;padding:30px;border-radius:8px;max-width:600px;margin:0 auto;}.header{color:#333;border-bottom:2px solid #007bff;padding-bottom:10px;}.content{margin:20px 0;color:#555;line-height:1.6;}.button{background-color:#007bff;color:#ffffff;padding:10px 20px;text-decoration:none;border-radius:5px;display:inline-block;margin-top:10px;}</style></head><body><div class='email-container'><h1 class='header'>Welcome to Our Service</h1><div class='content'><p>Hello,</p><p>Thank you for signing up. We're excited to have you on board!</p><a href='#' class='button'>Get Started</a></div></div></body></html>",
+  "width": 600,
+  "fullPage": true
+}
+```
+
+**Note:** WebShot accepts HTML content directly as a parameter. EML file format is not supported - you must extract and pass the HTML content from your email source.
+
 ### 5. Clipped Region Screenshot
 
 ```json
@@ -414,4 +429,4 @@ If you encounter any issues or have questions:
 
 ---
 
-**Made with ❤️ using Serverless and AWS Lambda | Save 90%+ on screenshot costs**
+**Made with care using Serverless and AWS Lambda | Save 90%+ on screenshot costs**
