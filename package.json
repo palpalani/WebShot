@@ -48,6 +48,6 @@
     "serverless-offline": "^13.8.1"
   },
   "dependencies": {
-    "puppeteer-core": "^24.22.3"
+    "puppeteer-core": "^24.25.0"
   }
 }
