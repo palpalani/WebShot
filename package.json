@@ -41,7 +41,7 @@
     "eslint-plugin-import": "^2.32",
     "eslint-plugin-jsx-a11y": "^6.10",
     "eslint-plugin-prettier": "^5.5",
-    "prettier": "^3.6",
+    "prettier": "^3.7",
     "serverless": "^3.40.0",
     "serverless-bundle": "6.3.1",
     "serverless-dotenv-plugin": "^6.0.0",
