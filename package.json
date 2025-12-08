@@ -35,7 +35,7 @@
     "url": "https://github.com/palpalani/webshot.git"
   },
   "devDependencies": {
-    "@sparticuz/chromium": "^141.0.0",
+    "@sparticuz/chromium": "^143.0.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0",
     "eslint-plugin-import": "^2.32",
